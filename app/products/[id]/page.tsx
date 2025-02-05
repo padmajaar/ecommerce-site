@@ -1,9 +1,10 @@
 import NotFoundPage from "@/app/not-found";
-import { products } from "@/app/product-data";
 import Image from "next/image";
 
-export default function ProductDetailsPage({ params }: { params: { id: string } }) {
-    const product = products.find(item => item.id === params.id);
+export default async function ProductDetailsPage({ params }: { params: { id: string } }) {
+    
+    const response = await fetch('http://localhost:3000/api/products/' + params.id)
+    const product = await response.json();
 
     if (!product) {
         return <NotFoundPage />;
